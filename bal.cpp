@@ -104,7 +104,6 @@ int valToIndex(int c) {
 }
 
 int balance(Node *current) {
-  // cout << "got into balance" << endl;
   if(kill) {
     return 0;
   }
@@ -249,18 +248,18 @@ int balance(Node *current) {
   }
 }
 
-void postorder(Node *root) { // A 2 -
-  if(root->left != NULL) postorder(root->left);
-  if(root->right != NULL) postorder(root->right);
+void postorder(Node *current) { // A 2 -
+  if(current->left != NULL) postorder(current->left);
+  if(current->right != NULL) postorder(current->right);
 
-    if(root->isBar) {
+    if(current->isBar) {
       cout << "-" << endl;
     }
-    else if(root->isVar) {
-      cout << (char) (root->index + 65) << endl;
+    else if(current->isVar) {
+      cout << (char) (current->index + 65) << endl;
     }
     else {
-      cout << root->weight << endl;
+      cout << current->weight << endl;
     }
 
 }
@@ -284,27 +283,29 @@ void postorder(Node *root) { // A 2 -
 // }
 
 int main(int argc, char *argv[]) {
+  for(int i = 0; i < 26; i++) {
+    variables[i] = -1;
+  }
   string line;
+  char input[1024];
   ifstream myfile("input.txt");
   if (myfile.is_open()){
-    while (getline(myfile,line)){
-      cout <<line<<endl;
-      for(int i = 0; i < 26; i++) {
-        variables[i] = -1;
-      }
-      char input[1024];
+    while (getline(myfile,line)) {
+      if(line == "[]") break;
+      kill = false;
+      cout << line << endl;
       strcpy(input, line.c_str());
-      int j = 0;
       root = new Node(true, false, false, 0, -1);
       root->parent = NULL;
       makeTree(input);
-      // postorder(root);
       balance(root);
+      // postorder(root);
       for(int i = 0; i < 26; i++) {
         float result = variables[i];
         if(result != -1) {
           cout << (char) (i + 65) << " " << result << endl;
         }
+        variables[i] = -1;
       }
     }
     myfile.close();
