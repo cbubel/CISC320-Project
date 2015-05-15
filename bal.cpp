@@ -107,7 +107,6 @@ int balance(Node *current) {
   if(kill) {
     return 0;
   }
-  // cout << current->index << endl;
   if(current->isKnown && current->leftKnown &&
     current->rightKnown && current->parent == 0) {
     kill = true;
@@ -263,24 +262,6 @@ void postorder(Node *current) { // A 2 -
     }
 
 }
-
-// int main(int argc, char *argv[]) {
-//   char *input = argv[1];
-//   for(int i = 0; i < 26; i++) {
-//     variables[i] = -1;
-//   }
-//   root = new Node(true, false, false, 0, -1);
-//   root->parent = NULL;
-//   makeTree(input);
-//   // postorder(root);
-//   balance(root);
-//   for(int i = 0; i < 26; i++) {
-//     float result = variables[i];
-//     if(result != -1) {
-//       cout << (char) (i + 65) << " " << result << endl;
-//     }
-//   }
-// }
 
 int main(int argc, char *argv[]) {
   for(int i = 0; i < 26; i++) {
