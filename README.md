@@ -1,1 +1,1 @@
-Initial commit
+All things being equal

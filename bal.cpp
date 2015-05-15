@@ -15,7 +15,6 @@ Node *root;
 bool makeTree(char input[]) {
   Node *current = root;
 
-  // current->parent = NULL;
   int armCount = 1;
 
   if (input[0] != '['){
@@ -25,15 +24,12 @@ bool makeTree(char input[]) {
 
   string numAsString = "";
 
-  // for (int i = 0; i < input.size(); i++) {
   int i = 1;
   int numOpen = 1;
   while(numOpen != 0) {
-  // while(i < 13) {
     int charVal = (int) input[i];
 
     if (charVal > 47 && charVal < 58) { // number from 0 to 9
-        // numAsString.append(input[i]);
         numAsString += input[i];
     }
     else {
@@ -247,7 +243,7 @@ int balance(Node *current) {
   }
 }
 
-void postorder(Node *current) { // A 2 -
+void postorder(Node *current) {
   if(current->left != NULL) postorder(current->left);
   if(current->right != NULL) postorder(current->right);
 
