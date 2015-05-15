@@ -1,6 +1,9 @@
 #include "bal.h"
 #include "stdio.h"
 #include <iostream>
+#include <cstring>
+#include <fstream>
+#include <string>
 using namespace std;
 
 float variables[26];
@@ -87,7 +90,7 @@ bool makeTree(char input[]) {
       current = current->parent;
     }
 
-    else if (charVal != 0 && !(charVal > 47 && charVal < 58)) { // invalid character
+    else if (charVal != 32 && charVal != 0 && !(charVal > 47 && charVal < 58)) { // invalid character
         cout << "Invalid character, please correct input" << endl;
         return false;
     }
@@ -262,20 +265,50 @@ void postorder(Node *root) { // A 2 -
 
 }
 
+// int main(int argc, char *argv[]) {
+//   char *input = argv[1];
+//   for(int i = 0; i < 26; i++) {
+//     variables[i] = -1;
+//   }
+//   root = new Node(true, false, false, 0, -1);
+//   root->parent = NULL;
+//   makeTree(input);
+//   // postorder(root);
+//   balance(root);
+//   for(int i = 0; i < 26; i++) {
+//     float result = variables[i];
+//     if(result != -1) {
+//       cout << (char) (i + 65) << " " << result << endl;
+//     }
+//   }
+// }
+
 int main(int argc, char *argv[]) {
-  char *input = argv[1];
-  for(int i = 0; i < 26; i++) {
-    variables[i] = -1;
-  }
-  root = new Node(true, false, false, 0, -1);
-  root->parent = NULL;
-  makeTree(input);
-  // postorder(root);
-  balance(root);
-  for(int i = 0; i < 26; i++) {
-    float result = variables[i];
-    if(result != -1) {
-      cout << (char) (i + 65) << " " << result << endl;
+  string line;
+  ifstream myfile("input.txt");
+  if (myfile.is_open()){
+    while (getline(myfile,line)){
+      cout <<line<<endl;
+      for(int i = 0; i < 26; i++) {
+        variables[i] = -1;
+      }
+      char input[1024];
+      strcpy(input, line.c_str());
+      int j = 0;
+      root = new Node(true, false, false, 0, -1);
+      root->parent = NULL;
+      makeTree(input);
+      // postorder(root);
+      balance(root);
+      for(int i = 0; i < 26; i++) {
+        float result = variables[i];
+        if(result != -1) {
+          cout << (char) (i + 65) << " " << result << endl;
+        }
+      }
     }
+    myfile.close();
   }
+  else cout << "Unable to open file";
+  return 0;
 }
