@@ -38,11 +38,11 @@ bool makeTree(char input[]) {
           // finish
           float val = stof(numAsString);
           if (current->left == 0) {
-            current->left = new Node(false, false, true, val, -1);
+            current->left = new Node(false, false, true, val + 1, -1);
             current->left->parent = current;
           }
           else if (current->right == 0) {
-            current->right = new Node(false, false, false, val, -1);
+            current->right = new Node(false, false, false, val + 1, -1);
             current->right->parent = current;
           }
           numAsString = "";
@@ -121,7 +121,6 @@ int balance(Node *current) {
       current->parent->rightExplored = true;
       current->parent->rightKnown = true;
     }
-    cout << "passing up " << current->weight << endl;
     current->parent->weight = current->weight * 2 + 1;
     current->parent->isKnown = true;
     balance(current->parent);
@@ -189,7 +188,7 @@ int balance(Node *current) {
     if(current->isVar) {
       if(current->parent->isKnown) {
         // write it
-        variables[current->index] = (float)((current->parent->weight - 1) / 2);
+        variables[current->index] = (float)(((current->parent->weight) - 1) / 2) - 1;
 
         if(current->isLeftChild) {
           current->parent->leftKnown = true;
@@ -226,8 +225,6 @@ int balance(Node *current) {
         else {
           // NONE
           kill = true;
-          cout << current->weight << " vs " << current->parent->weight << endl;
-          cout << "Something's not right" << endl;
           cout << "NONE" << endl;
           return -1;
         }
@@ -273,12 +270,12 @@ int main(int argc, char *argv[]) {
   root = new Node(true, false, false, 0, -1);
   root->parent = NULL;
   makeTree(input);
-  postorder(root);
+  // postorder(root);
   balance(root);
   for(int i = 0; i < 26; i++) {
     float result = variables[i];
-    // if(result != -1) {
+    if(result != -1) {
       cout << (char) (i + 65) << " " << result << endl;
-    // }
+    }
   }
 }
