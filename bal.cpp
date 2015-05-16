@@ -263,9 +263,9 @@ int valToIndex(int c) {
 void postorder(Node *current) {
   if(current->left != NULL) postorder(current->left);
   if(current->right != NULL) postorder(current->right);
-    if(current->isBar) cout << "-" << endl;
-    else if(current->isVar) cout << (char) (current->index + 65) << endl;
-    else cout << current->weight << endl;
+  if(current->isBar) cout << "-" << endl;
+  else if(current->isVar) cout << (char) (current->index + 65) << endl;
+  else cout << current->weight << endl;
 }
 
 

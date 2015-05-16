@@ -38,8 +38,7 @@ difficult to understand, so the general process is as follows:
   - Find a finite weight
   - Using that weight, pass values up and down the tree until all values are
     found
-  - If the node is a variable and it's value is found, write it out to an array
-
+  - If the node is a variable and its value is found, write it out to an array
   - Print the contents of the node array.
 
 The actual implementation is less simple than the points above, but that is the
